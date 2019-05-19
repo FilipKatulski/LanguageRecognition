@@ -9,7 +9,7 @@ from urllib import request
 def making_base(url):
     newUrl=url
     html = urllib.request.urlopen(newUrl).read()   
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, "lxml")
 
     # kill all script and style elements
     for script in soup(["script", "style"]):
@@ -39,3 +39,35 @@ english_txt=making_base(english_url)
 url = input('Tutaj przekopiuj adres strony\n')
 txt=making_base(url)
 #print(txt)
+polish_cnt=0
+english_cnt=0
+
+for x in txt:
+    for y in polish_txt:
+        if x==y:
+            polish_cnt+=1
+            #print(x)
+            #print(y)
+            break
+        else:
+            polish_cnt+=0
+for x in txt:
+    for y in english_txt:
+        if x==y:
+            english_cnt+=1
+            #print(x)
+            #print(y)
+            break
+        else:
+            english_cnt+=0
+print("ilość znalezionych słów na stronie: ", end=' ')
+print(len(txt))
+print("ilość słów w polskiej bazie: ", end=' ')
+print(len(polish_txt))
+print("ilość słów w angielskiej bazie: ", end=' ')
+print(len(english_txt))
+print("ilość znalezionych par słów polskich: ",end=" ")
+print(polish_cnt)
+print("ilość znalezionych par słów angielskich: ", end=' ')
+print(english_cnt)
+
