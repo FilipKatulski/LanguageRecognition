@@ -1,5 +1,6 @@
 import urllib
 import bs4
+import copy
 from bs4 import BeautifulSoup
 from urllib import request
 #import PyPDF2
@@ -24,8 +25,8 @@ def making_base(url):
     # drop blank lines
     text = '\n'.join(chunk for chunk in chunks if chunk)
     
-    polish_splitted_txt=text.split()
-    return polish_splitted_txt
+    splitted_txt=text.split()
+    return splitted_txt
 
 polish_url = "https://pl.wikipedia.org/wiki/Polska"
 
