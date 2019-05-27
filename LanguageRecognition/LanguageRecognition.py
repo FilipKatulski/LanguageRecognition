@@ -24,18 +24,39 @@ def making_base(url):
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     # drop blank lines
     text = '\n'.join(chunk for chunk in chunks if chunk)
-    
+    text=text.replace('1','')
+    text=text.replace('2','')
+    text=text.replace('3','')
+    text=text.replace('4','')
+    text=text.replace('5','')
+    text=text.replace('6','')
+    text=text.replace('7','')
+    text=text.replace('8','')
+    text=text.replace('9','')
+    text=text.replace('0','')
+    text=text.replace(',','')
+    text=text.replace('.','')
+    text=text.replace(':','')
+    text=text.replace(';','')
+    text=text.replace('(','')
+    text=text.replace(')','')
+    text=text.replace('[','')
+    text=text.replace(']','')
+    text=text.replace('"','')
+    text=text.replace('^','')
+    text=text.replace('@','')
+    text=text.replace('#','')
     splitted_txt=text.split()
     return splitted_txt
 
 polish_url = "https://pl.wikipedia.org/wiki/Polska"
 
 polish_txt=making_base(polish_url)
-#print(polish_txt)
+print(polish_txt)
 
 english_url = "https://en.wikipedia.org/wiki/England"
 english_txt=making_base(english_url)
-#print(english_txt)
+print(english_txt)
 
 url = input('Tutaj przekopiuj adres strony\n')
 txt=making_base(url)
