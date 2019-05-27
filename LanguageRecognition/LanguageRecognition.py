@@ -3,6 +3,9 @@ import bs4
 import copy
 from bs4 import BeautifulSoup
 from urllib import request
+from tkinter import *
+
+
 #import PyPDF2
 #import nltk
 #nltk.download()
@@ -44,19 +47,25 @@ def making_base(url):
     text=text.replace(']','')
     text=text.replace('"','')
     text=text.replace('^','')
+    text=text.replace('/','')
+    text=text.replace('?','')
     text=text.replace('@','')
     text=text.replace('#','')
+    text=text.replace('-',' ')
+    text=text.replace('+','')
+    text=text.replace('=','')
+    text=text.replace('  ',' ')
     splitted_txt=text.split()
     return splitted_txt
 
 polish_url = "https://pl.wikipedia.org/wiki/Polska"
 
 polish_txt=making_base(polish_url)
-print(polish_txt)
+#print(polish_txt)
 
 english_url = "https://en.wikipedia.org/wiki/England"
 english_txt=making_base(english_url)
-print(english_txt)
+#print(english_txt)
 
 url = input('Tutaj przekopiuj adres strony\n')
 txt=making_base(url)
@@ -68,8 +77,8 @@ for x in txt:
     for y in polish_txt:
         if x==y:
             polish_cnt+=1
-            #print(x)
-            #print(y)
+            print(x)
+            print(y)
             break
         else:
             polish_cnt+=0
@@ -77,8 +86,8 @@ for x in txt:
     for y in english_txt:
         if x==y:
             english_cnt+=1
-            #print(x)
-            #print(y)
+            print(x)
+            print(y)
             break
         else:
             english_cnt+=0
