@@ -5,23 +5,21 @@ from bs4 import BeautifulSoup
 from urllib import request
 from tkinter import *
 import os.path
-from pathlib import Path
+
+root=Tk()
+
+button1 = Button( text='Guzik1', fg = 'red')
+
+button4 = Button( text='Guzik4', fg = 'blue')
+button1.grid(row = 0, column = 1)
+
+button4.grid(row = 1, column = 1)
+entry1=Entry(root)
+entry1.grid(row=0,column=0)
+entry2=Entry(root)
+entry2.grid(row =1, column=0)
 
 
-#root=Tk()
-
-#button1 = Button( text='Guzik1', fg = 'red')
-
-#button4 = Button( text='Guzik4', fg = 'blue')
-#button1.grid(row = 0, column = 1)
-
-#button4.grid(row = 1, column = 1)
-#entry1=Entry(root)
-#entry1.grid(row=0,column=0)
-#entry2=Entry(root)
-#entry2.grid(row =1, column=0)
-
-#root.mainloop()
 
 
 
@@ -81,12 +79,10 @@ polish_txt=["dziwne","słowa"]
 english_txt=["lol", "wire"]
 
 if os.path.isfile('english.txt')==True: 
-    
     print("en exist")
     with open("english.txt", "r", encoding='utf-8') as f:
         for line in f:
-            english_txt.append(str(line.strip()))
-    
+            english_txt.append(str(line.strip())) 
 else:
     # False
     print("en doesnt exits")
@@ -98,15 +94,13 @@ else:
 print("loaded english word bank")
 
 if os.path.isfile('polish.txt')==True: 
-    
     print("pl exist")
     with open("polish.txt", "r", encoding='utf-8') as f:
         for line in f:
             polish_txt.append(str(line.strip()))
-    
 else:
     # False
-    print("pl doesnt exits")
+    print("pl base doesn't exits")
     polish_txt=making_base(polish_url)
     with open("polish.txt", "w", encoding='utf-8') as f:
         for s in polish_txt:
@@ -150,3 +144,4 @@ print(polish_cnt)
 print("ilość znalezionych par słów angielskich: ", end=' ')
 print(english_cnt)
 
+root.mainloop()
