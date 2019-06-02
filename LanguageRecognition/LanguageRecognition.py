@@ -4,11 +4,26 @@ import copy
 from bs4 import BeautifulSoup
 from urllib import request
 from tkinter import *
+import os.path
+from pathlib import Path
 
 
-#import PyPDF2
-#import nltk
-#nltk.download()
+#root=Tk()
+
+#button1 = Button( text='Guzik1', fg = 'red')
+
+#button4 = Button( text='Guzik4', fg = 'blue')
+#button1.grid(row = 0, column = 1)
+
+#button4.grid(row = 1, column = 1)
+#entry1=Entry(root)
+#entry1.grid(row=0,column=0)
+#entry2=Entry(root)
+#entry2.grid(row =1, column=0)
+
+#root.mainloop()
+
+
 
 def making_base(url):
     newUrl=url
@@ -54,18 +69,51 @@ def making_base(url):
     text=text.replace('-',' ')
     text=text.replace('+','')
     text=text.replace('=','')
+    text=text.replace('•','')
     text=text.replace('  ',' ')
     splitted_txt=text.split()
     return splitted_txt
 
 polish_url = "https://pl.wikipedia.org/wiki/Polska"
-
-polish_txt=making_base(polish_url)
-#print(polish_txt)
-
 english_url = "https://en.wikipedia.org/wiki/England"
-english_txt=making_base(english_url)
-#print(english_txt)
+
+polish_txt=["dziwne","słowa"]
+english_txt=["lol", "wire"]
+
+if os.path.isfile('english.txt')==True: 
+    
+    print("en exist")
+    with open("english.txt", "r", encoding='utf-8') as f:
+        for line in f:
+            english_txt.append(str(line.strip()))
+    
+else:
+    # False
+    print("en doesnt exits")
+    english_txt=making_base(english_url)
+    with open("english.txt", "w", encoding='utf-8') as f:
+        for s in english_txt:
+            f.write(str(s) +"\n")
+
+print("loaded english word bank")
+
+if os.path.isfile('polish.txt')==True: 
+    
+    print("pl exist")
+    with open("polish.txt", "r", encoding='utf-8') as f:
+        for line in f:
+            polish_txt.append(str(line.strip()))
+    
+else:
+    # False
+    print("pl doesnt exits")
+    polish_txt=making_base(polish_url)
+    with open("polish.txt", "w", encoding='utf-8') as f:
+        for s in polish_txt:
+            f.write(str(s) +"\n")
+
+print("loaded polish word bank")
+
 
 url = input('Tutaj przekopiuj adres strony\n')
 txt=making_base(url)
@@ -77,8 +125,8 @@ for x in txt:
     for y in polish_txt:
         if x==y:
             polish_cnt+=1
-            print(x)
-            print(y)
+            #print(x)
+            #print(y)
             break
         else:
             polish_cnt+=0
@@ -86,8 +134,8 @@ for x in txt:
     for y in english_txt:
         if x==y:
             english_cnt+=1
-            print(x)
-            print(y)
+            #print(x)
+            #print(y)
             break
         else:
             english_cnt+=0
