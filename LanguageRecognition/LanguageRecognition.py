@@ -3,22 +3,8 @@ import bs4
 import copy
 from bs4 import BeautifulSoup
 from urllib import request
-from tkinter import *
+#from tkinter import *
 import os.path
-
-root=Tk()
-
-button1 = Button( text='Guzik1', fg = 'red')
-
-button4 = Button( text='Guzik4', fg = 'blue')
-button1.grid(row = 0, column = 1)
-
-button4.grid(row = 1, column = 1)
-entry1=Entry(root)
-entry1.grid(row=0,column=0)
-entry2=Entry(root)
-entry2.grid(row =1, column=0)
-
 
 
 
@@ -69,6 +55,7 @@ def making_base(url):
     text=text.replace('=','')
     text=text.replace('•','')
     text=text.replace('  ',' ')
+    text.lower()
     splitted_txt=text.split()
     return splitted_txt
 
@@ -139,9 +126,40 @@ print("ilość słów w polskiej bazie: ", end=' ')
 print(len(polish_txt))
 print("ilość słów w angielskiej bazie: ", end=' ')
 print(len(english_txt))
-print("ilość znalezionych par słów polskich: ",end=" ")
+print("ilość znalezionych par słów polskich(unigramy): ",end=" ")
 print(polish_cnt)
-print("ilość znalezionych par słów angielskich: ", end=' ')
+print("ilość znalezionych par słów angielskich(unigramy): ", end=' ')
 print(english_cnt)
 
-root.mainloop()
+
+#bigram_txt=['slowo', 'drugie', 'trzecie', 'czwarte','piate']
+polish_bicnt=0
+english_bicnt=0
+z_cnt=0
+v_cnt=0
+#new_txt=['slowo', 'drugie','trzecie', 'czwarte','piate']
+
+#for z_cnt in range(len(txt)):
+ #   for v_cnt in range(len(english_txt)):
+  #      if txt[z_cnt]==english_txt[v_cnt]: 
+   #         try:
+    #            if txt[z_cnt+1]==english_txt[v_cnt+1]:
+     #               print(txt[z_cnt],end=' ')
+      #              print(txt[z_cnt+1],end='   ')
+       #             print(english_txt[v_cnt],end =' ')
+        #            print(english_txt[v_cnt+1])
+         #           english_bicnt+=1
+          #          
+           #         break
+            #    else:
+             #       english_bicnt+=0
+                    
+           # except IndexError:
+           #      pass
+       # else:
+        #    english_bicnt+=0
+
+#print("ilość znalezionych par słów polskich(bigramy): ",end=" ")
+#print(polish_bicnt)
+#print("ilość znalezionych par słów angielskich(bigramy): ", end=' ')
+#print(english_bicnt)
