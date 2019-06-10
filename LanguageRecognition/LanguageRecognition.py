@@ -5,9 +5,54 @@ from bs4 import BeautifulSoup
 from urllib import request
 #from tkinter import *
 import os.path
+#GoT_txt=['Games', 'of', 'Thrones']
 
-
-
+def make_base(source):
+    #textfile=source
+    with open (source, "r", encoding='utf-8') as myfile:
+        data=myfile.readlines()
+    
+    # break into lines and remove leading and trailing space on each
+    #lines = (line.strip() for line in data.splitlines())
+    # break multi-headlines into a line each
+    chunks = (phrase.strip() for line in data for phrase in line.split("  "))
+    # drop blank lines
+    text = '\n'.join(chunk for chunk in chunks if chunk)
+    text=text.replace('1','')
+    text=text.replace('2','')
+    text=text.replace('3','')
+    text=text.replace('4','')
+    text=text.replace('5','')
+    text=text.replace('6','')
+    text=text.replace('7','')
+    text=text.replace('8','')
+    text=text.replace('9','')
+    text=text.replace('0','')
+    text=text.replace(',','')
+    text=text.replace('.','')
+    text=text.replace(':','')
+    text=text.replace(';','')
+    text=text.replace('(','')
+    text=text.replace(')','')
+    text=text.replace('[','')
+    text=text.replace(']','')
+    text=text.replace('{','')
+    text=text.replace('}','')
+    text=text.replace('"','')
+    text=text.replace('^','')
+    text=text.replace('/','')
+    text=text.replace('?','')
+    text=text.replace('@','')
+    text=text.replace('#','')
+    text=text.replace('-',' ')
+    text=text.replace('+','')
+    text=text.replace('=','')
+    text=text.replace('•','')
+    text=text.replace('',' ')
+    text=text.replace('  ',' ')
+    text.lower()
+    base=text.split()
+    return base
 
 def making_base(url):
     newUrl=url
@@ -44,6 +89,8 @@ def making_base(url):
     text=text.replace(')','')
     text=text.replace('[','')
     text=text.replace(']','')
+    text=text.replace('{','')
+    text=text.replace('}','')
     text=text.replace('"','')
     text=text.replace('^','')
     text=text.replace('/','')
@@ -59,21 +106,21 @@ def making_base(url):
     splitted_txt=text.split()
     return splitted_txt
 
-polish_url = "https://pl.wikipedia.org/wiki/Polska"
-english_url = "https://en.wikipedia.org/wiki/England"
-
+#polish_url = "https://pl.wikipedia.org/wiki/Polska"
+#english_url = "https://en.wikipedia.org/wiki/England"
+#eng_base=make_base('GRRMartinGoT.txt') 
 polish_txt=["dziwne","słowa"]
 english_txt=["lol", "wire"]
 
 if os.path.isfile('english.txt')==True: 
-    print("en exist")
+    print("english base exist")
     with open("english.txt", "r", encoding='utf-8') as f:
         for line in f:
             english_txt.append(str(line.strip())) 
 else:
     # False
-    print("en doesnt exits")
-    english_txt=making_base(english_url)
+    print("english base doesnt exits")
+    english_txt=make_base('GRRMartinGoT.txt')
     with open("english.txt", "w", encoding='utf-8') as f:
         for s in english_txt:
             f.write(str(s) +"\n")
@@ -81,20 +128,24 @@ else:
 print("loaded english word bank")
 
 if os.path.isfile('polish.txt')==True: 
-    print("pl exist")
+    print("polish base exist")
     with open("polish.txt", "r", encoding='utf-8') as f:
         for line in f:
             polish_txt.append(str(line.strip()))
 else:
     # False
-    print("pl base doesn't exits")
-    polish_txt=making_base(polish_url)
+    print("polish base doesn't exits")
+    polish_txt=make_base('DukajJacekLod.txt')
     with open("polish.txt", "w", encoding='utf-8') as f:
         for s in polish_txt:
             f.write(str(s) +"\n")
 
 print("loaded polish word bank")
 
+print("ilość słów w polskiej bazie: ", end=' ')
+print(len(polish_txt))
+print("ilość słów w angielskiej bazie: ", end=' ')
+print(len(english_txt))
 
 url = input('Tutaj przekopiuj adres strony\n')
 txt=making_base(url)
@@ -122,44 +173,64 @@ for x in txt:
             english_cnt+=0
 print("ilość znalezionych słów na stronie: ", end=' ')
 print(len(txt))
-print("ilość słów w polskiej bazie: ", end=' ')
-print(len(polish_txt))
-print("ilość słów w angielskiej bazie: ", end=' ')
-print(len(english_txt))
 print("ilość znalezionych par słów polskich(unigramy): ",end=" ")
 print(polish_cnt)
 print("ilość znalezionych par słów angielskich(unigramy): ", end=' ')
 print(english_cnt)
 
 
-#bigram_txt=['slowo', 'drugie', 'trzecie', 'czwarte','piate']
+#BIGRAMS
+
 polish_bicnt=0
 english_bicnt=0
 z_cnt=0
 v_cnt=0
-#new_txt=['slowo', 'drugie','trzecie', 'czwarte','piate']
 
-#for z_cnt in range(len(txt)):
- #   for v_cnt in range(len(english_txt)):
-  #      if txt[z_cnt]==english_txt[v_cnt]: 
-   #         try:
-    #            if txt[z_cnt+1]==english_txt[v_cnt+1]:
-     #               print(txt[z_cnt],end=' ')
-      #              print(txt[z_cnt+1],end='   ')
-       #             print(english_txt[v_cnt],end =' ')
-        #            print(english_txt[v_cnt+1])
-         #           english_bicnt+=1
-          #          
-           #         break
-            #    else:
-             #       english_bicnt+=0
+for z_cnt in range(len(txt)):
+    for v_cnt in range(len(english_txt)):
+        if txt[z_cnt]==english_txt[v_cnt]: 
+            try:
+                if txt[z_cnt+1]==english_txt[v_cnt+1]:
+                    print(txt[z_cnt],end=' ')
+                    print(txt[z_cnt+1],end='   ')
+                    print(english_txt[v_cnt],end =' ')
+                    print(english_txt[v_cnt+1])
+                    english_bicnt+=1
                     
-           # except IndexError:
-           #      pass
-       # else:
-        #    english_bicnt+=0
+                    break
+                else:
+                    english_bicnt+=0
+                    
+            except IndexError:
+                 pass
+        else:
+            english_bicnt+=0
 
-#print("ilość znalezionych par słów polskich(bigramy): ",end=" ")
-#print(polish_bicnt)
-#print("ilość znalezionych par słów angielskich(bigramy): ", end=' ')
-#print(english_bicnt)
+
+print("ilość znalezionych par słów angielskich(bigramy): ", end=' ')
+print(english_bicnt)
+
+z_cnt=0
+v_cnt=0
+for z_cnt in range(len(txt)):
+    for v_cnt in range(len(polish_txt)):
+        if txt[z_cnt]==polish_txt[v_cnt]: 
+            try:
+                if txt[z_cnt+1]==polish_txt[v_cnt+1]:
+                    print(txt[z_cnt],end=' ')
+                    print(txt[z_cnt+1],end='   ')
+                    print(polish_txt[v_cnt],end =' ')
+                    print(polish_txt[v_cnt+1])
+                    polish_bicnt+=1
+                    
+                    break
+                else:
+                    polish_bicnt+=0
+                    
+            except IndexError:
+                 pass
+        else:
+            polish_bicnt+=0
+
+print("ilość znalezionych par słów polskich(bigramy): ",end=" ")
+print(polish_bicnt)
