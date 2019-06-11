@@ -172,14 +172,14 @@ polish_bi_txt=[' ',' ']
 proto_english_bi_txt=bigram_base(english_txt)
 english_bi_txt=[' ', ' ']
 if len(proto_polish_bi_txt)>100000:
-    print("Polish bigram base would be too long. \nReduced to first 100.000 elements.\n")
+    print("Polish bigram base would be too long. \nReduced to first 100.000 elements. (before making a dictionary)\n")
     for y in range(100000):
         polish_bi_txt.append(proto_polish_bi_txt[y])
 else:
     polish_bi_txt=copy(proto_polish_bi_txt)
 
 if len(proto_english_bi_txt)>100000:
-    print("English bigram base would be too long. \nReduced to first 100.000 elements.\n")
+    print("English bigram base would be too long. \nReduced to first 100.000 elements. (before making a dictionary)\n")
     for y in range(100000):
         english_bi_txt.append(proto_english_bi_txt[y])
 else:
@@ -217,28 +217,14 @@ english_bi_cnt=0
 def unigrams(txt, polish_txt, english_txt):
     polish_cnt=0
     english_cnt=0
-    start1=time.time()
+    
     for x in txt:
-        for y in polish_txt:
-            if x==y:
-                polish_cnt+=1
-                #print(x)
-                #print(y)
-                break
-            else:
-                polish_cnt+=0
-    end1=time.time()
-    print('Elapsed time:', end=' ')
-    print(end1-start1)
-    for x in txt:
-        for y in english_txt:
-            if x==y:
-                english_cnt+=1
-                #print(x)
-                #print(y)
-                break
-            else:
-                english_cnt+=0
+        if x in polish_txt and x not in english_txt:
+            polish_cnt+=1
+                
+        elif x in english_txt and x not in polish_txt:
+            english_cnt+=1
+    
     return polish_cnt, english_cnt
 
 start1=time.time()
@@ -263,24 +249,11 @@ def bigrams(bi_txt, polish_bi_txt, english_bi_txt):
     polish_bi_cnt=0
     english_bi_cnt=0
     for x in bi_txt:
-        for y in polish_bi_txt:
-            if x==y:
-                polish_bi_cnt+=1
-                #print(x,end='   ')
-                #print(y)
-                break
-            else:
-                polish_bi_cnt+=0
-    
-    for x in bi_txt:
-        for y in english_bi_txt:
-            if x==y:
-                english_bi_cnt+=1
-                #print(x, end='   ')
-                #print(y)
-                break
-            else:
-                english_bi_cnt+=0
+        if x in polish_bi_txt and x not in english_bi_txt:
+            polish_bi_cnt+=1
+        elif x in english_bi_txt and x not in polish_bi_txt:
+            english_bi_cnt+=1
+           
     return polish_bi_cnt, english_bi_cnt
 start2=time.time()
 firstbigram=bigrams(bi_txt,polish_bi_txt,english_bi_txt)
