@@ -213,10 +213,6 @@ german_bi_txt=bigram_base(german_txt)
 #german_bi_txt=[' ', ' ']
 
 
-
-
-
-
 polish_bi_txt = dict.fromkeys(polish_bi_txt)
 english_bi_txt = dict.fromkeys(english_bi_txt)
 french_bi_txt = dict.fromkeys(french_bi_txt)
