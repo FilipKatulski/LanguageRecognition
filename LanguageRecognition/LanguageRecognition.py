@@ -5,12 +5,13 @@ from bs4 import BeautifulSoup
 from urllib import request
 import os.path
 
+#make bases for language model
 
 def make_base(source):
     #textfile=source
     with open (source, "r", encoding='utf-8') as myfile:
         data=myfile.readlines()
-    
+
     # break multi-headlines into a line each
     chunks = (phrase.strip() for line in data for phrase in line.split("  "))
     # drop blank lines
@@ -58,7 +59,7 @@ def make_base(source):
 
 def bigram_base(base):
     bi_base=[' ', ' ']
-    
+
     for x in range(len(base)):
         try:
             bi_base.append(base[x]+' '+base[x+1])
@@ -69,7 +70,7 @@ def bigram_base(base):
 
 def making_base(url):
     newUrl=url
-    html = urllib.request.urlopen(newUrl).read()   
+    html = urllib.request.urlopen(newUrl).read()
     soup = BeautifulSoup(html, "lxml")
 
     # kill all script and style elements
@@ -128,12 +129,12 @@ def making_base(url):
 
 #Checking for existing source .txt files
 
-if os.path.isfile('english.txt')==True: 
+if os.path.isfile('english.txt')==True:
     print("English base exist")
     english_txt=["lol", "wire"]
     with open("english.txt", "r", encoding='utf-8') as f:
         for line in f:
-            english_txt.append(str(line.strip())) 
+            english_txt.append(str(line.strip()))
 else:
     # False
     print("English base doesn't exist, insert name of the source file: ", end=' ')
@@ -147,12 +148,12 @@ else:
 print("loaded english word bank")
 
 
-if os.path.isfile('french.txt')==True: 
+if os.path.isfile('french.txt')==True:
     print("French base exist")
     french_txt=["moi", "belle"]
     with open("french.txt", "r", encoding='utf-8') as f:
         for line in f:
-            french_txt.append(str(line.strip())) 
+            french_txt.append(str(line.strip()))
 else:
     # False
     print("French base doesn't exist, insert name of the source file: ", end=' ')
@@ -166,12 +167,12 @@ else:
 print("loaded french word bank")
 
 
-if os.path.isfile('german.txt')==True: 
+if os.path.isfile('german.txt')==True:
     print("German base exist")
     german_txt=["wir", "sind"]
     with open("german.txt", "r", encoding='utf-8') as f:
         for line in f:
-            german_txt.append(str(line.strip())) 
+            german_txt.append(str(line.strip()))
 else:
     # False
     print("German base doesn't exist, insert name of the source file: ", end=' ')
@@ -185,7 +186,7 @@ else:
 print("loaded german word bank")
 
 
-if os.path.isfile('polish.txt')==True: 
+if os.path.isfile('polish.txt')==True:
     print("Polish base exist")
     polish_txt=["dziwne","słowa"]
     with open("polish.txt", "r", encoding='utf-8') as f:
@@ -267,11 +268,11 @@ def unigrams(txt, polish_txt, english_txt, french_txt, german_txt):
     english_cnt=0
     french_cnt=0
     german_cnt=0
-    
+
     for x in txt:
         if x in polish_txt and x not in english_txt and x not in french_txt and x not in german_txt:
             polish_cnt+=1
-       
+
         elif x in english_txt and x not in polish_txt and x not in french_txt and x not in german_txt:
             english_cnt+=1
         elif x in french_txt and x not in polish_txt and x not in german_txt and x not in english_txt:
@@ -339,7 +340,7 @@ def bigrams(bi_txt, polish_bi_txt, english_bi_txt, french_bi_txt, german_bi_txt)
             french_bi_cnt+=1
         elif x in german_bi_txt and x not in polish_bi_txt and x not in french_bi_txt and x not in english_bi_txt:
             german_bi_cnt+=1
-           
+
     return polish_bi_cnt, english_bi_cnt, french_bi_cnt, german_bi_cnt
 
 firstbigram=bigrams(bi_txt,polish_bi_txt,english_bi_txt, french_bi_txt, german_bi_txt)
